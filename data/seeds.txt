@@ -67,6 +67,7 @@ RadTech-Solutions/modwall
 reporails/arcade
 ruihe774/cc-micro-compaction
 saiharsha03/clawd-spinner
+samaphp/session-links
 samox73/claude-code-latex
 SARTHAK2511/claude-combo
 scasella/claude-flightdeck
