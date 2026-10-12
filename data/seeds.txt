@@ -41,6 +41,7 @@ hellosverre/redgreen
 hellosverre/smart-compact
 hoobnn/hoobnn-agent-mods
 i-harsha-reddy/naruto-mod
+iamumeransari/claude-show-your-work
 icedevil2001/auto-continue
 jarrodwatts/intermission
 Jarvizx/hablo
