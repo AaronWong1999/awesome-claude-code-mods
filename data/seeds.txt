@@ -25,6 +25,7 @@ chrisluo5311/Pixel-Play
 danilpavlov/telescope-claude-code
 danzerzine/claude-council
 DarkVelours/claude-code-galactic-battle
+dominicrico/jev-router
 dot-agi/arrester
 dot-agi/downrange
 dot-agi/high-command
