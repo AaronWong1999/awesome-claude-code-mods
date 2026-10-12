@@ -31,6 +31,8 @@ dot-agi/downrange
 dot-agi/high-command
 dot-agi/sandbox-tuner
 gerricchaplin/pr-pulse
+griches/buildpane
+griches/installguard
 halluton/Mindful-Claude
 helenkwok/gsd-status-mod
 helenkwok/open-links
