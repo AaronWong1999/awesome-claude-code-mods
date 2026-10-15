@@ -39,6 +39,7 @@ halluton/Mindful-Claude
 helenkwok/gsd-status-mod
 helenkwok/open-links
 hellosverre/claude-skins
+hellosverre/mod-store
 hellosverre/redgreen
 hellosverre/smart-compact
 hoobnn/hoobnn-agent-mods
