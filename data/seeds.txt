@@ -85,6 +85,7 @@ Shuffzord/RoadRaven
 somethingwentwell/cc-mod-banana-game
 Sumit189/explain-claude-mod
 SummerRiversound/review-inbox
+tozmoz/sparkmine
 twjackysu/claude-code-stock-ticker
 ugglr/claude-token-monster
 VaitaR/claude-code-limits
