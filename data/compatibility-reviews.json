@@ -26,5 +26,26 @@
     ],
     "reason": "The null character is used only to reject paths containing it. resolvePath returns undefined for that input; the literal is not inserted into rendered text.",
     "source": "https://github.com/kiankhooban/open-paths/blob/dad28e23010500d228a70ad1e048e0888d402a17/hooks/paths.ts#L138"
+  },
+  {
+    "id": "candygoogy/notary:plugins/changes",
+    "sourceCommit": "439d1b43fac82ce352a46950fb728d6586ad0943",
+    "claudeVersion": "2.1.301",
+    "warnings": [
+      {
+        "code": "ui-control-characters",
+        "message": "UI hook source contains control-character strings. Review any values passed to next() as rewritten props.text; the scanner does not trace whether these strings reach that call.",
+        "evidence": [
+          { "file": "plugins/changes/hooks/core/diff.ts", "line": 91 },
+          { "file": "plugins/changes/hooks/core/diff.ts", "line": 296 },
+          { "file": "plugins/changes/hooks/core/git-status.ts", "line": 30 },
+          { "file": "plugins/changes/hooks/core/model.ts", "line": 95 },
+          { "file": "plugins/changes/hooks/core/timeline.ts", "line": 320 },
+          { "file": "plugins/changes/hooks/io/git.ts", "line": 127 }
+        ]
+      }
+    ],
+    "reason": "Carriage returns are stripped from line endings and DEL is replaced with a visible control picture. NUL separates parsed Git fields and internal status keys; it is not inserted into displayed text. UI delegation passes the original event to next().",
+    "source": "https://github.com/candygoogy/notary/tree/439d1b43fac82ce352a46950fb728d6586ad0943/plugins/changes/hooks"
   }
 ]
