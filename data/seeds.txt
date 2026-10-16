@@ -1,5 +1,6 @@
 # Repos the GitHub code search has not indexed yet. One owner/repo per line, in alphabetical order ignoring case.
 3dnow/claude-mods
+404Mayank/cachebeat
 adamholter/claude-subway-surfers
 agentic-workbench/agent-quick-menu
 AlexeyHRDesign/colorwheel
