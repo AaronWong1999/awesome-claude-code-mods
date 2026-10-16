@@ -55,6 +55,7 @@ karanb192/cache-tax
 karanb192/claude-code-mods
 kiankhooban/open-paths
 kongyo2/context-view
+Kruhlikau/subagent-tuner
 ljmerza/prompt-spellcheck
 lorenzh/rabe
 magiclin99/buddy-go
