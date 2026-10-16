@@ -33,6 +33,7 @@ dot-agi/arrester
 dot-agi/downrange
 dot-agi/high-command
 dot-agi/sandbox-tuner
+edtrackai/claude-code-guardrails-lite
 gerricchaplin/pr-pulse
 griches/buildpane
 griches/installguard
