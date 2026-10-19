@@ -66,6 +66,7 @@ karanb192/time-blame
 kiankhooban/open-paths
 kongyo2/context-view
 Kruhlikau/subagent-tuner
+kushalBanda/claude-tldr
 leonidb/claude-code-mods
 letusnotc/folder-map
 ljmerza/prompt-spellcheck
