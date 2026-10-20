@@ -411,6 +411,20 @@ test('the dispatch replay harness does not count as a shipped mod', () => {
   assert.equal(kindOf(repo, 'scripts/replay-dispatch', {}, new Set(), exceptions), 'mod')
 })
 
+test('the transcript layout spike stays out without excluding the reply mod', () => {
+  const repo = 'Malkiz/claude-reply-comments'
+  for (const path of ['spikes/transcript-layouts', 'spikes/transcript-layouts/probe']) {
+    assert.equal(kindOf(repo, path, {}), 'fixture', path)
+    assert.equal(kindOf(repo.toLowerCase(), path, {}), 'fixture', path)
+  }
+  for (const path of ['.', 'spikes/transcript-layouts-live', 'spikes/other']) {
+    assert.equal(kindOf(repo, path, {}), 'mod', path)
+  }
+  assert.equal(kindOf('another/claude-reply-comments', 'spikes/transcript-layouts', {}), 'mod')
+  const exceptions = new Set([`${repo}:spikes/transcript-layouts`])
+  assert.equal(kindOf(repo, 'spikes/transcript-layouts', {}, new Set(), exceptions), 'mod')
+})
+
 test('benchmark fixtures stay out without excluding usable evaluation mods', () => {
   for (const path of ['lab/bench', 'benchmarks/baseline', 'benchmark/no-trace']) {
     assert.equal(kindOf('a/b', path, { name: 'baseline' }), 'fixture')

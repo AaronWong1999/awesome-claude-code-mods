@@ -12,6 +12,7 @@ const REPO_FIXTURES = new Map([
   ['cdeust/claude-mods', /^scripts\/replay-dispatch(?:\/|$)/],
   ['gaius-codius/ostrakon', /^tools\/(?:experiments\/(?:spc|spw|spx|spx0)|gallery|mockups)(?:\/|$)/],
   ['kurushiba/claude-mods', /^(?:02-first-mod\/broken|03-events|04-test-pilot|05-ui\/broken|08-testing\/errors|09-distribution)(?:\/|$)/],
+  ['malkiz/claude-reply-comments', /^spikes\/transcript-layouts(?:\/|$)/],
   ['milocosmopolitan/redacton', /^qualification(?:\/|$)/],
 ])
 
