@@ -233,8 +233,8 @@ for (const mixedVersion of [false, true]) test(`scan publication retries concurr
   writeFileSync(join(checkout, 'README.md'), 'Curated original.\n<!-- stats:start -->\n<!-- stats:end -->\n')
   writeFileSync(join(checkout, 'catalogue.md'), ['stats', 'scan', 'builtin'].map(name => `<!-- ${name}:start -->\n<!-- ${name}:end -->`).join('\n'))
   execFileSync(process.execPath, ['tools/render.mjs'], { cwd: checkout, env })
-  // One run starts before the access page existed, so publication covers creating it as well as updating it.
-  if (mixedVersion) rmSync(join(checkout, 'docs/access'), { recursive: true })
+  // One run starts before the access page, A to Z pages and directory data existed, so publication covers creating them as well as updating them.
+  if (mixedVersion) for (const path of ['docs/access', 'docs/browse', 'docs/directory']) rmSync(join(checkout, path), { recursive: true })
   git('add', '.')
   git('commit', '-m', 'Fixture inventory')
   git('push', 'origin', 'HEAD:main')
@@ -296,6 +296,8 @@ if(args[0]==='api'){
   const pages = JSON.parse(git('--git-dir', remote, 'show', 'nightly-scan:data/pages.json'))
   assert.deepEqual(Object.keys(pages), ['o--discovered--discovered', 'o--old--old', 'o--published--published'], 'every mod in the reconciled scan gets a page')
   assert.match(git('--git-dir', remote, 'show', 'nightly-scan:docs/mods/o--discovered--discovered/index.html'), /<h1>discovered<\/h1>/)
+  assert.match(git('--git-dir', remote, 'show', 'nightly-scan:docs/browse/d/index.html'), /<a href="\/mods\/o--discovered--discovered\/">/, 'the A to Z pages list the newly published mod')
+  assert.ok(JSON.parse(git('--git-dir', remote, 'show', 'nightly-scan:docs/directory/1.json')).rows.some(row => row.includes('id="o--discovered--discovered"')), 'the directory data carries the newly published mod')
   assert.match(git('--git-dir', remote, 'show', 'nightly-scan:docs/access/index.html'), /catalogue of 3 counted mods/, 'the access page is published with the scan')
   assert.match(git('--git-dir', remote, 'show', 'nightly-scan:README.md'), /Merged after PR creation/)
   const published = proposed().mods.find(m => m.repo === 'o/published')
