@@ -36,6 +36,22 @@ test('nothing on $ means no calls', () => {
   assert.deepEqual(parseHooks('tool.call'), [{ event: 'tool.call', matcher: {} }])
 })
 
+test('nested matchers and quoted punctuation remain inside their hook', () => {
+  assert.deepEqual(parseHooks('command.run{origin={kind=composer}|{kind=bridge}}, prompt.submit{origin={kind=composer, source=[one,two]}}, tool.call{tool=/"^(a,b|x=y|[}])$"/}, session.end'), [
+    { event: 'command.run', matcher: { origin: '{kind=composer}|{kind=bridge}' } },
+    { event: 'prompt.submit', matcher: { origin: '{kind=composer, source=[one,two]}' } },
+    { event: 'tool.call', matcher: { tool: '/"^(a,b|x=y|[}])$"/' } },
+    { event: 'session.end', matcher: {} },
+  ])
+  assert.deepEqual(parseHooks('session.start, command.run{origin={kind=bridge}'), [{ event: 'session.start', matcher: {} }])
+  const parsed = parseValidateOutput('  ❯ ./a.ts hooks: session.start, tool.call{tool=/"[}]"/}, command.run{origin={kind=bridge}[+10 chars]}\n  ❯ ./a.ts calls: nothing on $\n✔ Validation passed')
+  assert.deepEqual(parsed.modules[0].hooks, [
+    { event: 'session.start', matcher: {} },
+    { event: 'tool.call', matcher: { tool: '/"[}]"/' } },
+  ])
+  assert.equal(footprintStatus(parsed, ['./a.ts']).status, 'unavailable')
+})
+
 test('footprint coverage requires hooks and explicit calls for every declared module', () => {
   const read = text => parseValidateOutput(text + '\n✘ Validation failed')
   const full = '  ❯ ./a.ts hooks: session.start\n  ❯ ./a.ts calls: $.http.fetch'
@@ -423,6 +439,20 @@ test('the transcript layout spike stays out without excluding the reply mod', ()
   assert.equal(kindOf('another/claude-reply-comments', 'spikes/transcript-layouts', {}), 'mod')
   const exceptions = new Set([`${repo}:spikes/transcript-layouts`])
   assert.equal(kindOf(repo, 'spikes/transcript-layouts', {}, new Set(), exceptions), 'mod')
+})
+
+test('acceptance drivers and uninstalled hook sources do not count as separate mods', () => {
+  for (const [repo, path, product] of [
+    ['CyclopsEyeTeam/cyclops-fresheye', 'acceptance/driver', '.'],
+    ['ninondev/claude-sama', 'source', 'plugin'],
+  ]) {
+    assert.equal(kindOf(repo, path, {}), 'fixture')
+    assert.equal(kindOf(repo.toLowerCase(), `${path}/hooks`, {}), 'fixture')
+    assert.equal(kindOf(repo, product, {}), 'mod')
+    assert.equal(kindOf(repo, `${path}-tools`, {}), 'mod')
+    assert.equal(kindOf('other/repo', path, {}), 'mod')
+    assert.equal(kindOf(repo, path, {}, new Set(), new Set([`${repo}:${path}`])), 'mod')
+  }
 })
 
 test('benchmark fixtures stay out without excluding usable evaluation mods', () => {
